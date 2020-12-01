@@ -1,0 +1,13 @@
+<h2>Global variables</h2>
+<app-section-header [section]="section"></app-section-header>
+
+<ngb-accordion #acc="ngbAccordion">
+  <ngb-panel *ngFor="let global of symbols.globals">
+    <ng-template ngbPanelTitle>
+      <span>{{ symbols.renderVariable(global) }}</span>
+    </ng-template>
+    <ng-template ngbPanelContent>
+      <app-dbg-symbols-detail [symbol]="global" [tags]="tags"></app-dbg-symbols-detail>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>

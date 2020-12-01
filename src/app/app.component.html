@@ -1,0 +1,55 @@
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar" [class.active]="hideSectionList">
+        <div class="sidebar-header">
+            <h4>Sections</h4>
+        </div>
+        <app-sections [smxfile]="smxfile" (selectSection)="selectedSection=$event.main; selectedSubsection=$event.sub"></app-sections>
+    </nav>
+
+    <!-- Page content -->
+    <div id="content" [class.active]="hideSectionList">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-info" (click)="sidebarCollapse($event)">
+                    <i class="fas fa-align-left"></i>
+                    <span>Toggle Sectionlist</span>
+                </button>
+                <h2>{{title}}</h2>
+                <input type="file" accept=".smx" (change)="fileChangeEvent($event)" placeholder="Select file..." />
+            </div>
+        </nav>
+        <div *ngIf="smxfile && selectedSection">
+            <div [ngSwitch]="selectedSection.name">
+                <app-file-header *ngSwitchCase="'(header)'" [smxfile]="smxfile"></app-file-header>
+                <app-names-section *ngSwitchCase="'.names'" [section]="selectedSection"></app-names-section>
+                <app-names-section *ngSwitchCase="'.dbg.strings'" [section]="selectedSection"></app-names-section>
+                <app-data-section *ngSwitchCase="'.data'" [section]="selectedSection"></app-data-section>
+                <app-code-section *ngSwitchCase="'.code'" [smxfile]="smxfile" [section]="selectedSection"></app-code-section>
+                <app-publics-section *ngSwitchCase="'.publics'" [section]="selectedSection"></app-publics-section>
+                <app-pubvars-section *ngSwitchCase="'.pubvars'" [section]="selectedSection"></app-pubvars-section>
+                <app-natives-section *ngSwitchCase="'.natives'" [section]="selectedSection"></app-natives-section>
+                <app-tags-section *ngSwitchCase="'.tags'" [section]="selectedSection"></app-tags-section>
+                <app-dbg-info-section *ngSwitchCase="'.dbg.info'" [section]="selectedSection"></app-dbg-info-section>
+                <app-dbg-files-section *ngSwitchCase="'.dbg.files'" [section]="selectedSection"></app-dbg-files-section>
+                <app-dbg-lines-section *ngSwitchCase="'.dbg.lines'" [section]="selectedSection" [dbgFilesSection]="smxfile.debugFiles"></app-dbg-lines-section>
+                <app-dbg-natives-section *ngSwitchCase="'.dbg.natives'" [section]="selectedSection" [tags]="smxfile.tags"></app-dbg-natives-section>
+                <app-dbg-symbols-section *ngSwitchCase="'.dbg.symbols'" [section]="selectedSection" [subsection]="selectedSubsection" [tags]="smxfile.tags"></app-dbg-symbols-section>
+                <app-rtti-data-section *ngSwitchCase="'rtti.data'" [section]="selectedSection"></app-rtti-data-section>
+                <app-rtti-classdefs-section *ngSwitchCase="'rtti.classdefs'" [section]="selectedSection" [smxfile]="smxfile"></app-rtti-classdefs-section>
+                <app-rtti-fields-section *ngSwitchCase="'rtti.fields'" [section]="selectedSection" [rttiData]="smxfile.rttiData"></app-rtti-fields-section>
+                <app-rtti-enums-section *ngSwitchCase="'rtti.enums'" [section]="selectedSection"></app-rtti-enums-section>
+                <app-rtti-enumstructs-section *ngSwitchCase="'rtti.enumstructs'" [section]="selectedSection" [smxfile]="smxfile"></app-rtti-enumstructs-section>
+                <app-rtti-enumstruct-fields-section *ngSwitchCase="'rtti.enumstruct_fields'" [section]="selectedSection" [rttiData]="smxfile.rttiData"></app-rtti-enumstruct-fields-section>
+                <app-rtti-natives-section *ngSwitchCase="'rtti.natives'" [section]="selectedSection" [rttiData]="smxfile.rttiData"></app-rtti-natives-section>
+                <app-rtti-methods-section *ngSwitchCase="'rtti.methods'" [section]="selectedSection" [rttiData]="smxfile.rttiData"></app-rtti-methods-section>
+                <app-rtti-typedefs-section *ngSwitchCase="'rtti.typedefs'" [section]="selectedSection" [rttiData]="smxfile.rttiData"></app-rtti-typedefs-section>
+                <app-rtti-typesets-section *ngSwitchCase="'rtti.typesets'" [section]="selectedSection" [rttiData]="smxfile.rttiData"></app-rtti-typesets-section>
+                <app-dbg-methods-section *ngSwitchCase="'.dbg.methods'" [section]="selectedSection" [rttiData]="smxfile.rttiData" [rttiMethods]="smxfile.rttiMethods"></app-dbg-methods-section>
+                <app-dbg-globals-section *ngSwitchCase="'.dbg.globals'" [section]="selectedSection" [rttiData]="smxfile.rttiData"></app-dbg-globals-section>
+                <app-dbg-locals-section *ngSwitchCase="'.dbg.locals'" [section]="selectedSection"></app-dbg-locals-section>
+                <app-unknown-section *ngSwitchDefault [section]="selectedSection"></app-unknown-section>
+            </div>
+        </div>
+    </div>
+</div>

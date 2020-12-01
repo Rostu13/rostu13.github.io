@@ -1,0 +1,17 @@
+<h2>{{ section.name }} section</h2>
+<app-section-header [section]="section"></app-section-header>
+
+<table class="table table-sm table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Offset</th>
+      <th scope="col">String</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let entry of namesList()">
+      <th scope="row">0x{{ entry.offset | toHex }}</th>
+      <td>{{ entry.string }}</td>
+    </tr>
+  </tbody>
+</table>
